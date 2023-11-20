@@ -3,3 +3,6 @@ This repository contains MATLAB scripts performing neccessary calculations for s
 
 ## Task formulation 
 Formulation of the task is given in the .pdf file named FEM Homework - 1. 
+
+## How to start
+To start and perform the calculations, simply run the script Task2.m.
