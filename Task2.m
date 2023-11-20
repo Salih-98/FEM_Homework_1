@@ -6,6 +6,7 @@
 
 %% Defining data given in the task formulation 
 
+addpath('calculationFunctions\')
 % In this section we first define W, X, Y, Z based on inputed
 % immatriculation number, and then based on that value we define rest of
 % given parameters a,b, c,d, A, E, pmax, prescribed values of F and u23, as
