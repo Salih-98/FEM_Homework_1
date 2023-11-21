@@ -81,15 +81,16 @@ Lspring = round(sqrt(c^2 + b^2),4);
 
 %% Apply boundary conditions 
 
-disp('Reduced matrix for element 1 is:')
-[kr1,rsmm1] = applyHomogBC(k1, smm1, 0,0,0,1,1,1)
-disp('Reduced matrix for element 2 is:')
-[kr2, rsmm2] = applyHomogBC(k2, smm2, 0,0,1,1,1,1)
-disp('Reduced matrix for element 3 is:')
-[kr3, rsmm3] = applyHomogBC(k3, smm3, 1,1,0,1,1,1)
-disp('Reduced matrix for the spring is:')
-[ksr,rsmms] = applyHomogBC(kSpring, smms, 0,0,1,1,1,0)
+%disp('Reduced matrix for element 1 is:')
+[kr1,rsmm1] = applyHomogBC(k1, smm1, 0,0,0,1,1,1);
+%disp('Reduced matrix for element 2 is:');
+[kr2, rsmm2] = applyHomogBC(k2, smm2, 0,0,1,1,1,1);
+%disp('Reduced matrix for element 3 is:')
+[kr3, rsmm3] = applyHomogBC(k3, smm3, 1,1,0,1,1,1);
+%disp('Reduced matrix for the spring is:')
+[ksr,rsmms] = applyHomogBC(kSpring, smms, 0,0,1,1,1,0);
 
+writeResultsToTxt();
 %% Custom functions
 
 function stiffness = getStiffness(E,A,L)
