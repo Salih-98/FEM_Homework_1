@@ -1,4 +1,4 @@
-function elementStiffnessMatrix = getElementStiffnessMatrix(stiffness,C1, C2, C3)
+function [elementStiffnessMatrix,SM] = getElementStiffnessMatrix(stiffness,C1, C2, C3)
 %GETELEMENTSTIFFNESSMATRIX Generates element stiffness matrix for given
 %direction cosines 
 

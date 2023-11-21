@@ -72,19 +72,19 @@ Lspring = round(sqrt(c^2 + b^2),4);
 [cs1, cs2, cs3] = getDirectCos(x2,y2,z2, x3,y3,z3,Lspring);
 
 %% Calculate element stiffness matrix for each elements (BCs not applied)
-k1 = getElementStiffnessMatrix(stiff1, c11,c12,c13);
-k2 = getElementStiffnessMatrix(stiff2, c21,c22,c23);
-k3 = getElementStiffnessMatrix(stiff3, c31,c32,c33);
-kSpring = getElementStiffnessMatrix(ks, cs1, cs2, cs3);
+[k1, smm1] = getElementStiffnessMatrix(stiff1, c11,c12,c13);
+[k2, smm2] = getElementStiffnessMatrix(stiff2, c21,c22,c23);
+[k3, smm3] = getElementStiffnessMatrix(stiff3, c31,c32,c33);
+[kSpring, smms] = getElementStiffnessMatrix(ks, cs1, cs2, cs3);
 %% Apply boundary conditions 
 disp('Reduced matrix for element 1 is:')
-kr1 = applyHomogBC(k1, 0,0,0,1,1,1)
+[kr1,rsmm1] = applyHomogBC(k1, smm1, 0,0,0,1,1,1)
 disp('Reduced matrix for element 2 is:')
-kr2 = applyHomogBC(k2, 0,0,1,1,1,1)
+[kr2, rsmm2] = applyHomogBC(k2, smm2, 0,0,1,1,1,1)
 disp('Reduced matrix for element 3 is:')
-kr3 = applyHomogBC(k3, 1,1,0,1,1,1)
+[kr3, rsmm3] = applyHomogBC(k3, smm3, 1,1,0,1,1,1)
 disp('Reduced matrix for the spring is:')
-ksr = applyHomogBC(kSpring, 0,0,1,1,1,0)
+[ksr,rsmms] = applyHomogBC(kSpring, smms, 0,0,1,1,1,0)
 
 %% Custom functions
 
