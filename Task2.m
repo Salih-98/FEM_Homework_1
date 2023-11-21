@@ -66,17 +66,21 @@ L3 = round(sqrt(a^2 + b^2),4); stiff3 = getStiffness(E,A,L3);
 Lspring = round(sqrt(c^2 + b^2),4);
 
 %% Calculate directional cosines for each element
+
 [c11, c12, c13] = getDirectCos(x4,y4,z4, x1,y1,z1,L1);
 [c21, c22, c23] = getDirectCos(x2,y2,z2, x1,y1,z1,L2);
 [c31, c32, c33] = getDirectCos(x3,y3,z3, x1,y1,z1,L3);
 [cs1, cs2, cs3] = getDirectCos(x2,y2,z2, x3,y3,z3,Lspring);
 
 %% Calculate element stiffness matrix for each elements (BCs not applied)
+
 [k1, smm1] = getElementStiffnessMatrix(stiff1, c11,c12,c13);
 [k2, smm2] = getElementStiffnessMatrix(stiff2, c21,c22,c23);
 [k3, smm3] = getElementStiffnessMatrix(stiff3, c31,c32,c33);
 [kSpring, smms] = getElementStiffnessMatrix(ks, cs1, cs2, cs3);
+
 %% Apply boundary conditions 
+
 disp('Reduced matrix for element 1 is:')
 [kr1,rsmm1] = applyHomogBC(k1, smm1, 0,0,0,1,1,1)
 disp('Reduced matrix for element 2 is:')
@@ -87,17 +91,6 @@ disp('Reduced matrix for the spring is:')
 [ksr,rsmms] = applyHomogBC(kSpring, smms, 0,0,1,1,1,0)
 
 %% Custom functions
-
-% -- getWXYZ function - extracts values for task parameters from the
-% immatrikulation nummer
-
-function [W, X, Y, Z] = getWXYZ(iNum)
-i = length(iNum);
-Z = str2num(iNum(i)); 
-Y = str2num(iNum(i-1));
-X = str2num(iNum(i-2));
-W = str2num(iNum(i-3));
-end 
 
 function stiffness = getStiffness(E,A,L)
 stiffness = E*A/L;
