@@ -147,8 +147,7 @@ unRedglobalLoadVector = getGlobalLoadVector(localLoadVector, c11, c12, c13);
 globalLoadVector = getReducedGlobalLoadVector(unRedglobalLoadVector, prF, alpha);
 
 %% Compute unknown displacements
-displacements = getUnknownDisplacements(rGM,globalLoadVector,pru23, beta);
-
+displacements = getUnknownDisplacements()
 %% Write all results to a .txt file
 writeResultsToTxt();
 
