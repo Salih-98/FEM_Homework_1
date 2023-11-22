@@ -134,6 +134,9 @@ else
     disp( 'Calculations dont produce the same result.');
 end
 
+%% Obtain the reduced global stiffness matrix - apply in-homogenous BCs
+rGM = applyInHomogBC(GlobalStiffnessMatrix,beta);
+
 %% Write all results to a .txt file
 writeResultsToTxt();
 
