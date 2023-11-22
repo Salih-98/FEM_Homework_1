@@ -1,4 +1,4 @@
-function [reducedStiffMatrix, rSM] = applyHomogBC(elementStiffnessMatrix,SM, r1,r2,r3,r4,r5,r6)
+function [reducedStiffMatrix, rSM] = applyElementHomogBC(elementStiffnessMatrix,SM, r1,r2,r3,r4,r5,r6)
 % This is a function which reduces the element stiffness matrix by applying
 % the homogenous Dirichlet Boundary conditions. Homogoneous Dirichlet
 % Boundary Conditions are applied by eliminating corresponding rows and

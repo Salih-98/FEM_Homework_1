@@ -82,15 +82,61 @@ Lspring = round(sqrt(c^2 + b^2),4);
 %% Apply boundary conditions 
 
 %disp('Reduced matrix for element 1 is:')
-[kr1,rsmm1] = applyHomogBC(k1, smm1, 0,0,0,1,1,1);
+[kr1,rsmm1] = applyElementHomogBC(k1, smm1, 0,0,0,1,1,1);
 %disp('Reduced matrix for element 2 is:');
-[kr2, rsmm2] = applyHomogBC(k2, smm2, 0,0,1,1,1,1);
+[kr2, rsmm2] = applyElementHomogBC(k2, smm2, 0,0,1,1,1,1);
 %disp('Reduced matrix for element 3 is:')
-[kr3, rsmm3] = applyHomogBC(k3, smm3, 1,1,0,1,1,1);
+[kr3, rsmm3] = applyElementHomogBC(k3, smm3, 1,1,0,1,1,1);
 %disp('Reduced matrix for the spring is:')
-[ksr,rsmms] = applyHomogBC(kSpring, smms, 0,0,1,1,1,0);
+[ksr,rsmms] = applyElementHomogBC(kSpring, smms, 0,0,1,1,1,0);
+%% Define global stiffness matrix - first option
+% Obtain the full global stiffness matrices for each element (12 displacements -
+% 4 nodes x 3 displacements) - not reduced, with displacements now sorted  from node 
+% 1 to number 4. Then, we apply homogoneous BC to each element global matrix to obtain
+% global element stiffness matrices. Then finally, we sum them and obtain
+% the global stiffness matrix for the whole structure. 
 
+% Compute full global stiffness matrices for each element
+GMel1 = getGlobalStiffnessMatrix(k1,4,1);
+GMel2 = getGlobalStiffnessMatrix(k2,2,1);
+GMel3 = getGlobalStiffnessMatrix(k3,3,1);
+GMelS = getGlobalStiffnessMatrix(kSpring,2,3);
+
+% Apply homogoneous BC so the global element matrices which are now sorted
+% properly - to get the reduced global stiffness matrix for each element.
+GM1 = applyGlobalHomogBC(GMel1,1,1,1,0,0,1,1,1,0,0,0,0);
+GM2 = applyGlobalHomogBC(GMel2,1,1,1,0,0,1,1,1,0,0,0,0);
+GM3 = applyGlobalHomogBC(GMel3,1,1,1,0,0,1,1,1,0,0,0,0);
+GMS = applyGlobalHomogBC(GMelS,1,1,1,0,0,1,1,1,0,0,0,0);
+
+% Sum them up to get the global stiffness matrix for the whole
+% strucutre.
+GlobalStiffnessMatrix = GM1 + GM2 + GM3 + GMS;
+
+%% Define global stiffness matrix - second option
+
+% Here, we add all full element stiffness matrices to obtain global
+% unreduced stiffness matrix for the whole structure. Then, we simply apply
+% the BCs to obtain reduced stiffness matrix for the whole structure. This
+% reduces the number of steps.
+
+% Assemble full global stiffness matrix by adding sorted unreduced element
+% stiffness matrices.
+GM = GMel1+GMel2+GMel3+GMelS;
+% Apply the boundary conditions to obtain global reduces stiffness matrix
+
+%% Check if both options perform the same thing
+GMSM = applyGlobalHomogBC(GM,1,1,1,0,0,1,1,1,0,0,0,0);
+
+if isequal(GlobalStiffnessMatrix,GMSM)
+    disp('Both calculations produce the same result.');
+else 
+    disp( 'Calculations dont produce the same result.');
+end
+
+%% Write all results to a .txt file
 writeResultsToTxt();
+
 %% Custom functions
 
 function stiffness = getStiffness(E,A,L)
