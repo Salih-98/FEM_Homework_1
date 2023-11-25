@@ -334,7 +334,7 @@ smms = [c1^2, c1*c2, c1*c3, -c1^2, -c1*c2, -c1*c3
  -c1*c2, -c2^2, -c2*c3, c1*c2, c2^2, c2*c3
  -c1*c3, -c2*c3, -c3^2, c1*c3, c2*c3, c3^2]
 springForceVector = [
-  1.21622 
+  2.78735 
 ]
 stiff1 = [
   612.134 
