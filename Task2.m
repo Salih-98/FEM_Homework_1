@@ -150,7 +150,7 @@ globalLoadVector = getReducedGlobalLoadVector(unRedglobalLoadVector, prF, alpha)
 displacements = getUnknownDisplacements(rGM,globalLoadVector,pru23, beta);
 
 %% Compute the force in the spring
-[springForceVector, resultantSpringForce] = getSpringForce(ksr, displacements,pru23);
+springForceVector = getSpringForce(displacements,c11,c12, ks);
 
 %% Write all results to a .txt file
 writeResultsToTxt();

@@ -7,8 +7,8 @@ syms x
 
 shapeFunction = [(1-x)*1/2 1/2*(1+x)];
 J = L/2;
-p1 = (1+x)*pmax/2;
-p2 = (1-x)*pmax/2;
+p1 = 3*(1+x)*pmax/2;
+p2 = 3*(1-x)*pmax/2;
 
 % Define the integral expression for the first integral
 integralExpression1 = int(transpose(shapeFunction)*p1*J, x);

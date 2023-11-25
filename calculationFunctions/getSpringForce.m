@@ -1,7 +1,8 @@
-function [springForceVector, resultantForce] = getSpringForce(ksr, displacements,pru23)
+function springForceVector = getSpringForce(displacements, cs1, cs2, ks)
 
-u = [pru23; displacements(4,1); displacements(5,1)];
-springForceVector = ksr * u;
-resultantForce = sqrt(springForceVector(1,1)^2 + springForceVector(2,1)^2 + springForceVector(3,1)^2);
+u = [displacements(4,1); displacements(5,1)];
+Tt = [-cs1 cs1; -cs2, cs2];
+uLocal = Tt * u;
+springForceVector = ks * uLocal(2,1);
 end
 
