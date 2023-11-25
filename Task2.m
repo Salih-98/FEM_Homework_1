@@ -134,8 +134,17 @@ else
     disp( 'Calculations dont produce the same result.');
 end
 
-%% Obtain the reduced global stiffness matrix - apply in-homogenous BCs
+%% Compute the reduced global stiffness matrix - apply in-homogenous BCs
 rGM = applyInHomogBC(GlobalStiffnessMatrix,beta);
+
+%% Compute the local load vector
+localLoadVector = getLocalLoadVector(pmax,L1);
+
+%% Compute the global load vector 
+unRedglobalLoadVector = getGlobalLoadVector(localLoadVector, c11, c12, c13);
+
+%% Compute reduced global load vector - apply BCs, apply prescribed force 
+globalLoadVector = getReducedGlobalLoadVector(unRedglobalLoadVector, prF, alpha);
 
 %% Write all results to a .txt file
 writeResultsToTxt();
