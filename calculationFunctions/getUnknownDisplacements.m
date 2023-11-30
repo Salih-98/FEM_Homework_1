@@ -27,9 +27,8 @@ Kuu = sortedSystemMatrix(1,1);
 Krr = sortedSystemMatrix(2:5, 2:5);
 Kru = sortedSystemMatrix(2:5,1);
 Kur = transpose(Kru);
-
-
-displacements = inv(Krr)*(rr - Kru*uu);
+p = (rr - Kru*uu);
+displacements = inv(Krr)*p;
 u32 = (-1)*tand(beta)*displacements(4,1);
 displacements (5,1) = u32;
 % Solve for r

@@ -17,6 +17,6 @@ c1 = C1; c2 = C2; c3 = C3;
 T = [c1, c2, c3, 0, 0 ,0; 0, 0, 0, c1, c2, c3];
 K = [1, -1; -1, 1];
 Tt = transpose(T); 
-elementStiffnessMatrix = stiffness*(Tt*K*T);
+elementStiffnessMatrix = stiffness*round((Tt*K*T),4);
 end
 
